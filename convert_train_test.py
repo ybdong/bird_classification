@@ -24,10 +24,27 @@ with open('data/images.txt', 'r') as f:
 with open('data/image_class_labels.txt', "r") as l:
     label=l.readlines()
 
-with open('data/test.txt', "w") as test_image_locations, open('data/train.txt', "w") as train_image_locations:
+with open('data/test_all.txt', "w") as test_image_locations, open('data/train_all.txt', "w") as train_image_locations:
     for i in range(len(data)):
         line=data[i].strip('\n').split(' ')[1]+' '+label[i].split(' ')[1]
         if i+1 in train_image_ids:
             train_image_locations.write(line)
         else:
             test_image_locations.write(line)
+NUM=5
+import random
+labels=random.sample(range(200), NUM)
+
+with open('data/train_all.txt', 'r') as f:  
+    data = f.readlines() 
+with open('data/train.txt', "w") as train_image_locations:
+    for line in data:
+        if int(line.strip('\n').split(' ')[1]) in labels:
+            train_image_locations.write(line)
+
+with open('data/test_all.txt', 'r') as f:  
+    data = f.readlines() 
+with open('data/test.txt', "w") as train_image_locations:
+    for line in data:
+        if int(line.strip('\n').split(' ')[1]) in labels:
+            train_image_locations.write(line)
